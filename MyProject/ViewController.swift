@@ -9,188 +9,194 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var labelName: UILabel!  // Label to display "Name:"
-    var labelLastName: UILabel!// Label to display "LastName:"
-    var labelDescription: UILabel!// Label to display "LastName:"
-    var fieldForName: UITextField!// Text field to enter the name
-    var fieldForLastName: UITextField!// Text field to enter the last name
-    var firstButton: UIButton!// Button to save the name and last name
-    var secondButton: UIButton!// Button to print the number of users
-    var textDescription: UITextView!// Text view to display a description
-    var storageForFullName: [(String,String)] = []// Array to store tuples of first names and last names
+    var nameLabel: UILabel!  // Label to display "Name:"
+    var lastNameLabel: UILabel!// Label to display "LastName:"
+    var descriptionLabel: UILabel!// Label to display "LastName:"
+    var nameField: UITextField!// Text field to enter the name
+    var lastNameField: UITextField!// Text field to enter the last name
+    var saveButton: UIButton!// Button to save the name and last name
+    var showButton: UIButton!// Button to print the number of users
+    var descriptionField: UITextView!// Text view to display a description
     
-  
+    var usersStorage: [UserInfo] = []// Array to store tuples of first names and last names
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white// Set the background color of the view to white
-        setupObjects()// Initialize and configure UI elements
+        createObjects()// Initialize and configure UI elements
         drawObjects()// Add UI elements to the view
-        setConstrains()// Set auto layout constraints for UI elements
+        setUpObjects()// Set auto layout constraints for UI elements
         addActions()// Add target actions for buttons
     }
     
-    
-    
+    // Now our buttons will work
     private func addActions() {
-        firstButton.addTarget(self, action: #selector(buttonFirstPressed), for:.touchUpInside)// Add target action for the first button
-        secondButton.addTarget(self, action: #selector(buttonSecondPressed), for:.touchUpInside) // Add target action for the second button
+        configureActionForSaveButton()
+        configureActionForShowButton()
     }
-    
-    
-    // This function is triggered when the firstButton is pressed. It retrieves the name and last name from the text fields,
-    // checks if they are not empty, and then saves them in the storageForFullName array.
-    // It also clears the text fields and sets the focus back to the name text field.
-    @objc private func buttonFirstPressed(sender: UIButton) {
-       if let name = fieldForName.text, let lastName = fieldForLastName.text,
-                                              !name.isEmpty, !lastName.isEmpty {
-            let tupleFullName = (name,lastName)
-            storageForFullName.append(tupleFullName)
-            fieldForName.text = "" // Clear the name text field
-            fieldForLastName.text = ""// Clear the last name text field
-            fieldForName.becomeFirstResponder()// Set focus on the name text field
-        }
-        
-    }
-    
-    // This function show you amount of users in the storage
-    @objc private func buttonSecondPressed(sender: UIButton) {
-        print(storageForFullName.count) // Print the number of items in the storageForFullName array
-    }
-    
-    
     
     // Draw objects on the view
     func drawObjects() {
-        let objects: [UIView] = [labelName,
-                                 labelLastName,
-                                 fieldForName,
-                                 fieldForLastName,
-                                 labelDescription,
-                                 textDescription,
-                                 firstButton,
-                                 secondButton]
-        
-        for object in objects {
-            self.view.addSubview(object)// Add each UI element to the view
+        [nameLabel, lastNameLabel, descriptionLabel, nameField, lastNameField,descriptionField,saveButton,showButton].forEach {
+            view.addSubview($0)
         }
     }
     
     // Create and configure UI elements
-    private func setupObjects() {
-        labelName = createLabel("Name:")
-        labelLastName = createLabel("LastName:")
-        labelDescription = createLabel("Description:")
-        fieldForName = createTextField(placeholder:"Enter your name")
-        fieldForLastName = createTextField(placeholder:"Enter your Last Name")
-        textDescription = createTextDescription()
-        firstButton = createButton("Save")
-        secondButton = createButton("Print n users")
-    }
-    
-    
-    
-    
-    // Creates and configures a UITextField with the specified placeholder
-    private func createTextField (placeholder: String) -> UITextField {
-        let res = UITextField()
-        res.translatesAutoresizingMaskIntoConstraints = false// Disable autoresizing masks
-        res.borderStyle = .roundedRect
-        res.layer.borderWidth = 1
-        res.layer.cornerRadius = 7
-        res.layer.borderColor = UIColor.lightGray.cgColor
-        res.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-        res.textAlignment = .left
-        res.placeholder = placeholder
-        return res
-    }
-    
-    
-    
-    // Creates and configures a UIButton with the specified title
-    private func createButton(_ text: String) -> UIButton {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false// Disable autoresizing masks
-        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        button.setTitle(text, for: .normal)
-        button.tintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        return button
-    }
-    
-    
-    
-    // Creates and configures a UILabel with the specified text
-    private func createLabel(_ text: String) -> UILabel {
-        let res = UILabel()
-        res.translatesAutoresizingMaskIntoConstraints = false// Disable autoresizing masks
-        res.text = text
-        res.numberOfLines = 0
-        res.font = UIFont.systemFont(ofSize: 18)
-        res.textColor = UIColor.black
-        return res
-    }
-    
-    // Creates and configures a UITextView with a default description
-    private func createTextDescription() -> UITextView {
-        let res = UITextView()
-        res.translatesAutoresizingMaskIntoConstraints = false// Disable autoresizing masks
-        res.layer.borderColor = UIColor.lightGray.cgColor
-        res.layer.borderWidth = 0.5
-        res.text = "I am coding now"
-        res.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
-        res.font = UIFont.systemFont(ofSize: 17)
-        res.backgroundColor = .white
-        return res
+    private func createObjects() {
+        nameLabel = ObjectsFactory.createLabel(text: "Name:",fontSize: 18)
+        lastNameLabel =  ObjectsFactory.createLabel(text: "LastName:",fontSize: 18)
+        descriptionLabel =  ObjectsFactory.createLabel(text: "Description:",fontSize: 18)
+        nameField =  ObjectsFactory.createTextField(placeholder:"Enter your name")
+        lastNameField =  ObjectsFactory.createTextField(placeholder:"Enter your Last Name")
+        descriptionField =  ObjectsFactory.createTextView()
+        saveButton =  ObjectsFactory.createButton(title: "Save")
+        showButton = ObjectsFactory.createButton(title: "Show n users")
     }
     
     // Set up the layout constraints for the UI elements
-    private func setConstrains() {
+    private func setUpObjects() {
         // Constraints for labelName
         NSLayoutConstraint.activate([
-            labelName.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
-            labelName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10)
-            ])
+            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            nameLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 5),
+            nameLabel.widthAnchor.constraint(equalToConstant: 55)
+        ])
         // Constraints for labelLastName
         NSLayoutConstraint.activate([
-            labelLastName.topAnchor.constraint(equalTo: labelName.topAnchor, constant: 45),
-            labelLastName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10)
-            ])
+            lastNameLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 45),
+            lastNameLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 5)
+        ])
         // Constraints for fieldForName
         NSLayoutConstraint.activate([
-            fieldForName.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
-            fieldForName.leftAnchor.constraint(equalTo: labelName.rightAnchor, constant: 5),
-            fieldForName.centerYAnchor.constraint(equalTo: labelName.centerYAnchor),
-            fieldForName.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -76)
-            ])
+         
+            nameField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 2),
+            nameField.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
+            nameField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -5)
+        ])
         // Constraints for fieldForLastName
         NSLayoutConstraint.activate([
-            fieldForLastName.leftAnchor.constraint(equalTo: labelLastName.rightAnchor, constant: 5),
-            fieldForLastName.centerYAnchor.constraint(equalTo: labelLastName.centerYAnchor),
-            fieldForLastName.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -110)
-            ])
+            lastNameField.leftAnchor.constraint(equalTo: lastNameLabel.rightAnchor, constant: 5),
+            lastNameField.centerYAnchor.constraint(equalTo: lastNameLabel.centerYAnchor),
+            lastNameField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -5)
+        ])
         // Constraints for labelDescription
         NSLayoutConstraint.activate([
-            labelDescription.topAnchor.constraint(equalTo: labelLastName.bottomAnchor, constant: 30),
-            labelDescription.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10)
-            ])
+            descriptionLabel.topAnchor.constraint(equalTo: lastNameLabel.topAnchor, constant: 50),
+            descriptionLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 5)
+        ])
         // Constraints for textDescription
         NSLayoutConstraint.activate([
-            textDescription.topAnchor.constraint(equalTo: labelDescription.bottomAnchor, constant: 10),
-            textDescription.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            textDescription.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            textDescription.heightAnchor.constraint(equalToConstant: 150)
-            ])
+            descriptionField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
+            descriptionField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 5),
+            descriptionField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -5),
+            descriptionField.heightAnchor.constraint(equalToConstant: 130)
+        ])
         // Constraints for firstButton(save)
         NSLayoutConstraint.activate([
-            firstButton.topAnchor.constraint(equalTo: textDescription.bottomAnchor, constant: 15),
-            firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            ])
+            saveButton.topAnchor.constraint(equalTo: descriptionField.bottomAnchor, constant: 15),
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
         // Constraints for secondButton(print n users)
         NSLayoutConstraint.activate([
-            secondButton.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 15),
-            secondButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            ])
-        }
+            showButton.topAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: 10),
+            showButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+        ])
+    }
     
+}
+
+
+// MARK: Saving User Information and Displaying Users
+
+extension ViewController {
+    
+    // Add target action for the first button
+    func configureActionForSaveButton() {
+        saveButton.addTarget(self, action: #selector(buttonSaveAction), for:.touchUpInside)
+        
+    }
+    
+    // This function is triggered when the firstButton is pressed. It retrieves the name, last name, and description from the text fields,
+    // checks if they are not empty. If any field is empty, it shows an alert prompting the user to fill in the required information.
+    // If all fields are filled, it creates a UserInfo object and adds it to the usersStorage array.
+    // It also clears the text fields and sets the focus back to the name text field.
+    @objc private func buttonSaveAction(sender: UIButton) {
+        
+            guard let name = nameField.text, !name.isEmpty else {
+                showAlert(withTitle: "Error", message: "Please enter your name")
+                return
+                
+            }
+            guard let lastName = lastNameField.text, !lastName.isEmpty else {
+                showAlert(withTitle: "Error", message: "Please enter your last name")
+                return
+                
+            }
+            guard let description = descriptionField.text, !description.isEmpty else {
+                showAlert(withTitle: "Error", message: "Please tell me about yourself")
+                return
+                
+            }
+            
+            let userInfo = UserInfo(name: name, lastName: lastName, description: description)
+            usersStorage.append(userInfo)
+            makeFieldsClear()
+            nameField.becomeFirstResponder()// Set focus on the name text field
+            changeAmountOfUsersOnShowButton()
+    }
+   
+    
+    
+    // Create an alert to show information to the user when they have not filled in a required field.
+    private func showAlert(withTitle title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+       
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    // Update the amount of users displayed on the "show n users" button.
+    private func changeAmountOfUsersOnShowButton() {
+        let usersCount = usersStorage.count
+        let buttonText = "Show \(usersCount) user\(usersCount == 1 ? "" : "s")"
+        showButton.setTitle(buttonText, for: .normal)
+    }
+    
+    
+    // Make filelds empty when we are saved new user
+    private func makeFieldsClear(){
+        nameField.text = "" // Clear the name text field
+        lastNameField.text = ""// Clear the last name text field
+        descriptionField.text = ""
+    }
+}
+
+
+// MARK: Displaying Users
+
+extension ViewController {
+    
+    // Configure target action for the second button.
+    func configureActionForShowButton() {
+        showButton.addTarget(self, action: #selector(buttonShowAction), for:.touchUpInside)
+        
+    }
+    
+    // Handle the action when the "showButton" is pressed.
+    @objc private func buttonShowAction(sender: UIButton) {
+        let controller = ControllerWithUsersInformation()
+        controller.users = usersStorage
+        navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
