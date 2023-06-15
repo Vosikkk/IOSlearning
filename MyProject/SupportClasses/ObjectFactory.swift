@@ -18,7 +18,7 @@ class ObjectsFactory {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
         label.font = UIFont.systemFont(ofSize: fontSize)
-        label.textColor = .black
+        label.textColor = .textColor
         return label
     }
     
@@ -29,7 +29,7 @@ class ObjectsFactory {
         textField.borderStyle = .roundedRect
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 7
-        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.borderColor = UIColor.borderColorForFields.cgColor
         textField.contentVerticalAlignment = .center
         textField.textAlignment = .left
         textField.placeholder = placeholder
@@ -40,11 +40,11 @@ class ObjectsFactory {
     static func createTextView() -> UITextView {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.layer.borderColor = UIColor.borderColorForFields.cgColor
         textView.layer.borderWidth = 0.5
         textView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
         textView.font = UIFont.systemFont(ofSize: 17)
-        textView.backgroundColor = .white
+        textView.backgroundColor = .backGroundFiledsColor
         return textView
     }
     
@@ -52,9 +52,9 @@ class ObjectsFactory {
     static func createButton(title: String) -> UIButton {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .white
+        button.backgroundColor = .backGroundButtonColor
         button.setTitle(title, for: .normal)
-        button.tintColor = UIColor(red: 0.26, green: 0.76, blue: 0.97, alpha: 1.0)
+        button.tintColor = .buttonTinColor
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return button
     }

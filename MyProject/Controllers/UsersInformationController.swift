@@ -12,10 +12,10 @@
 
 import UIKit
 
-class ControllerWithUsersInformation: UIViewController {
-
+class UsersInformationController: UIViewController {
     
-    var users: [UserInfo] = []
+    
+    
     
     // Initialize a new instance of the UITableView
     let tableView: UITableView = .init()
@@ -24,51 +24,47 @@ class ControllerWithUsersInformation: UIViewController {
 // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUpTableView()
-        
-        view.backgroundColor = .white
-        
-        tableView.register(UsersTableCellTableViewCell.self, forCellReuseIdentifier: "UsersTableCellTableViewCell")
-        
+        view.backgroundColor = .backGroundControllersColor
+        tableView.register(UsersTableCell.self, forCellReuseIdentifier: "UsersTableCell")
         tableView.dataSource = self
-       }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Update our table
+        tableView.reloadData()
+    }
 }
 
-
-// MARK: User Information
-struct UserInfo {
-      var name: String?
-      var lastName: String?
-      var description: String?
-      
-}
 
 // MARK:  UITableViewDataSource
-extension ControllerWithUsersInformation: UITableViewDataSource {
+extension UsersInformationController: UITableViewDataSource {
     
-   
+    
     
     // Our view will know how many rows we need to create
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return DataStorage.shared.users.count
     }
     
     
     // Create one cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableCellTableViewCell", for: indexPath) as? UsersTableCellTableViewCell else {fatalError()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableCell", for: indexPath) as? UsersTableCell else {fatalError()
         }
         
-        cell.configure(information: users[indexPath.row])
+        cell.configure(information: DataStorage.shared.users[indexPath.row])
         return cell
     }
 }
 
 
 // MARK:  Setup our table
-extension ControllerWithUsersInformation {
+extension UsersInformationController {
     
     func setUpTableView() {
         view.addSubview(tableView)
@@ -81,4 +77,4 @@ extension ControllerWithUsersInformation {
         ])
     }
 }
-  
+

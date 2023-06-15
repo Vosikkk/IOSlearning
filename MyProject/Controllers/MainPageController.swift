@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainPageController: UIViewController {
     
     var nameLabel: UILabel!  // Label to display "Name:"
     var lastNameLabel: UILabel!// Label to display "LastName:"
@@ -15,36 +15,31 @@ class ViewController: UIViewController {
     var nameField: UITextField!// Text field to enter the name
     var lastNameField: UITextField!// Text field to enter the last name
     var saveButton: UIButton!// Button to save the name and last name
-    var showButton: UIButton!// Button to print the number of users
     var descriptionField: UITextView!// Text view to display a description
     
-    var usersStorage: [UserInfo] = []// Array to store tuples of first names and last names
-    
-    
-    
-    
-    
+ 
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white// Set the background color of the view to white
+        view.backgroundColor = .backGroundControllersColor// Set the background color of the view to white
         createObjects()// Initialize and configure UI elements
         drawObjects()// Add UI elements to the view
         setUpObjects()// Set auto layout constraints for UI elements
-        addActions()// Add target actions for buttons
+        configureActionForSaveButton()// Add target actions for button
     }
     
-    // Now our buttons will work
-    private func addActions() {
-        configureActionForSaveButton()
-        configureActionForShowButton()
-    }
-    
-    // Draw objects on the view
+   
+     // Draw objects on the view
     func drawObjects() {
-        [nameLabel, lastNameLabel, descriptionLabel, nameField, lastNameField,descriptionField,saveButton,showButton].forEach {
+        [nameLabel, lastNameLabel, descriptionLabel, nameField, lastNameField,descriptionField,saveButton].forEach {
             view.addSubview($0)
         }
     }
+    
+  
+    
+    
+// MARK: Initializers objects
     
     // Create and configure UI elements
     private func createObjects() {
@@ -55,8 +50,11 @@ class ViewController: UIViewController {
         lastNameField =  ObjectsFactory.createTextField(placeholder:"Enter your Last Name")
         descriptionField =  ObjectsFactory.createTextView()
         saveButton =  ObjectsFactory.createButton(title: "Save")
-        showButton = ObjectsFactory.createButton(title: "Show n users")
+        
     }
+    
+  
+// MARK: Set Constraints
     
     // Set up the layout constraints for the UI elements
     private func setUpObjects() {
@@ -73,7 +71,6 @@ class ViewController: UIViewController {
         ])
         // Constraints for fieldForName
         NSLayoutConstraint.activate([
-         
             nameField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 2),
             nameField.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
             nameField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -5)
@@ -101,20 +98,16 @@ class ViewController: UIViewController {
             saveButton.topAnchor.constraint(equalTo: descriptionField.bottomAnchor, constant: 15),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        // Constraints for secondButton(print n users)
-        NSLayoutConstraint.activate([
-            showButton.topAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: 10),
-            showButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-        ])
+      
+        
     }
     
 }
 
 
-// MARK: Saving User Information and Displaying Users
+// MARK: Saving User Information 
 
-extension ViewController {
+extension MainPageController {
     
     // Add target action for the first button
     func configureActionForSaveButton() {
@@ -145,14 +138,12 @@ extension ViewController {
             }
             
             let userInfo = UserInfo(name: name, lastName: lastName, description: description)
-            usersStorage.append(userInfo)
+            DataStorage.shared.users.append(userInfo)
             makeFieldsClear()
             nameField.becomeFirstResponder()// Set focus on the name text field
-            changeAmountOfUsersOnShowButton()
+           
     }
    
-    
-    
     // Create an alert to show information to the user when they have not filled in a required field.
     private func showAlert(withTitle title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -161,17 +152,6 @@ extension ViewController {
        
         present(alertController, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    // Update the amount of users displayed on the "show n users" button.
-    private func changeAmountOfUsersOnShowButton() {
-        let usersCount = usersStorage.count
-        let buttonText = "Show \(usersCount) user\(usersCount == 1 ? "" : "s")"
-        showButton.setTitle(buttonText, for: .normal)
-    }
-    
     
     // Make filelds empty when we are saved new user
     private func makeFieldsClear(){
@@ -182,21 +162,6 @@ extension ViewController {
 }
 
 
-// MARK: Displaying Users
 
-extension ViewController {
-    
-    // Configure target action for the second button.
-    func configureActionForShowButton() {
-        showButton.addTarget(self, action: #selector(buttonShowAction), for:.touchUpInside)
-        
-    }
-    
-    // Handle the action when the "showButton" is pressed.
-    @objc private func buttonShowAction(sender: UIButton) {
-        let controller = ControllerWithUsersInformation()
-        controller.users = usersStorage
-        navigationController?.pushViewController(controller, animated: true)
-    }
-}
+
 

@@ -7,7 +7,7 @@
 // This class represents a view controller that displays users information using a table view.
 import UIKit
 
-class UsersTableCellTableViewCell: UITableViewCell {
+class UsersTableCell: UITableViewCell {
     
     
     // Label for displaying the name
@@ -20,16 +20,22 @@ class UsersTableCellTableViewCell: UITableViewCell {
     let descriptionLabel = ObjectsFactory.createLabel(text: "", fontSize: 15)
    
     
-    
+   // MARK: - Cell Initialization
+   
+    // This is the initializer for the UITableViewCell subclass
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setUpCell()
+        setUpCell()// Call the method to set up the cell's configuration
     }
     
+    // This initializer is required when implementing NSCoding protocol
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: - Cell Setup
+   
     private func setUpCell() {
         
         // Add labels to the cell's content view
