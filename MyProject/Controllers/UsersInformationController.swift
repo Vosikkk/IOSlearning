@@ -14,9 +14,6 @@ import UIKit
 
 class UsersInformationController: UIViewController {
     
-    
-    
-    
     // Initialize a new instance of the UITableView
     let tableView: UITableView = .init()
     
@@ -30,7 +27,6 @@ class UsersInformationController: UIViewController {
         tableView.dataSource = self
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -43,13 +39,10 @@ class UsersInformationController: UIViewController {
 // MARK:  UITableViewDataSource
 extension UsersInformationController: UITableViewDataSource {
     
-    
-    
     // Our view will know how many rows we need to create
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return DataStorage.shared.users.count
     }
-    
     
     // Create one cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,8 +54,6 @@ extension UsersInformationController: UITableViewDataSource {
         return cell
     }
 }
-
-
 // MARK:  Setup our table
 extension UsersInformationController {
     

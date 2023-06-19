@@ -21,8 +21,6 @@ class MainTabBarController: UITabBarController {
         setTabBarAppearance()
     }
     
-  
-   
     // Generate the tab bar with view controllers
     private func generateTabBar() {
         

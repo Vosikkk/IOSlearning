@@ -17,7 +17,7 @@ class MainPageController: UIViewController {
     var saveButton: UIButton!// Button to save the name and last name
     var descriptionField: UITextView!// Text view to display a description
     
- 
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,18 +28,15 @@ class MainPageController: UIViewController {
         configureActionForSaveButton()// Add target actions for button
     }
     
-   
-     // Draw objects on the view
+    
+    // Draw objects on the view
     func drawObjects() {
         [nameLabel, lastNameLabel, descriptionLabel, nameField, lastNameField,descriptionField,saveButton].forEach {
             view.addSubview($0)
         }
     }
     
-  
-    
-    
-// MARK: Initializers objects
+    // MARK: Initializers objects
     
     // Create and configure UI elements
     private func createObjects() {
@@ -53,8 +50,7 @@ class MainPageController: UIViewController {
         
     }
     
-  
-// MARK: Set Constraints
+    // MARK: Set Constraints
     
     // Set up the layout constraints for the UI elements
     private func setUpObjects() {
@@ -98,14 +94,10 @@ class MainPageController: UIViewController {
             saveButton.topAnchor.constraint(equalTo: descriptionField.bottomAnchor, constant: 15),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-      
-        
     }
     
 }
-
-
-// MARK: Saving User Information 
+// MARK: Saving User Information
 
 extension MainPageController {
     
@@ -121,35 +113,37 @@ extension MainPageController {
     // It also clears the text fields and sets the focus back to the name text field.
     @objc private func buttonSaveAction(sender: UIButton) {
         
-            guard let name = nameField.text, !name.isEmpty else {
-                showAlert(withTitle: "Error", message: "Please enter your name")
-                return
-                
-            }
-            guard let lastName = lastNameField.text, !lastName.isEmpty else {
-                showAlert(withTitle: "Error", message: "Please enter your last name")
-                return
-                
-            }
-            guard let description = descriptionField.text, !description.isEmpty else {
-                showAlert(withTitle: "Error", message: "Please tell me about yourself")
-                return
-                
-            }
+        guard let name = nameField.text, !name.isEmpty else {
+            showAlert(withTitle: "Error", message: "Please enter your name")
+            return
             
-            let userInfo = UserInfo(name: name, lastName: lastName, description: description)
-            DataStorage.shared.users.append(userInfo)
-            makeFieldsClear()
-            nameField.becomeFirstResponder()// Set focus on the name text field
-           
+        }
+        guard let lastName = lastNameField.text, !lastName.isEmpty else {
+            showAlert(withTitle: "Error", message: "Please enter your last name")
+            return
+            
+        }
+        guard let description = descriptionField.text, !description.isEmpty else {
+            showAlert(withTitle: "Error", message: "Please tell me about yourself")
+            return
+            
+        }
+        
+        let userInfo = UserInfo(name: name, lastName: lastName, descriptionInfo: description)
+        
+        DataStorage.shared.saveUsers(infoOfUser: userInfo)
+        
+        makeFieldsClear()
+        nameField.becomeFirstResponder()// Set focus on the name text field
+        
     }
-   
+    
     // Create an alert to show information to the user when they have not filled in a required field.
     private func showAlert(withTitle title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
-       
+        
         present(alertController, animated: true, completion: nil)
     }
     

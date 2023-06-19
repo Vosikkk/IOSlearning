@@ -66,6 +66,6 @@ class UsersTableCell: UITableViewCell {
     func configure(information: UserInfo) {
         nameLabel.text = information.name
         lastNameLabel.text = information.lastName
-        descriptionLabel.text = information.description
+        descriptionLabel.text = information.descriptionInfo
     }
 }
