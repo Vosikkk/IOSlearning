@@ -128,14 +128,10 @@ extension MainPageController {
             return
             
         }
-        
-        let userInfo = UserInfo(name: name, lastName: lastName, descriptionInfo: description)
-        
-        DataStorage.shared.saveUsers(infoOfUser: userInfo)
-        
+        let user = User(name: name, lastName: lastName, descriptionInfo: description)
+        DataStorage.shared.saveUsers(user: user)
         makeFieldsClear()
         nameField.becomeFirstResponder()// Set focus on the name text field
-        
     }
     
     // Create an alert to show information to the user when they have not filled in a required field.

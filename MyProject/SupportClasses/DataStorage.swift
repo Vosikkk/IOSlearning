@@ -8,19 +8,25 @@
 import Foundation
 
 
+struct Keys {
+    static let nameKey = "name"
+    static let lastNameKey = "lastName"
+    static let descriptionKey = "description"
+    static let usersKey = "users"
+    
+}
+
 // This is a class for storing and accessing data
 class DataStorage {
     
     static let shared = DataStorage()// Singleton instance of DataStorage
     
     private let userDefaults = UserDefaults.standard// UserDefaults instance for data storage
-    private let usersKey = "users"// Key used for saving/retrieving users
-    
-    var users: [UserInfo] {
+   var users: [User] {
         get {
             // Retrieve data from UserDefaults
-            if let data = userDefaults.data(forKey: usersKey),
-               let users = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [UserInfo] {
+            if let data = userDefaults.data(forKey: Keys.usersKey),
+               let users = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [User] {
                 return users
             }
             return []// Return an empty array if no users are found
@@ -28,13 +34,13 @@ class DataStorage {
         set {
             // Archive the new value and save it to UserDefaults
             if let data = try? NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: false) {
-                userDefaults.set(data, forKey: usersKey)
+                userDefaults.set(data, forKey: Keys.usersKey)
             }
         }
     }
     
-    func saveUsers(infoOfUser : UserInfo) {
-        users.append(infoOfUser)// Add a new user to the array
+    func saveUsers(user: User) {
+        users.append(user)// Add a new user to the array
     }
     
     private init() {}// Private initializer to enforce singleton pattern
@@ -44,7 +50,7 @@ class DataStorage {
 // MARK: - User Information
 
 
-class UserInfo: NSObject, NSCoding {
+class User: NSObject, NSCoding {
     
     var name: String?
     var lastName: String?
@@ -59,16 +65,16 @@ class UserInfo: NSObject, NSCoding {
     
     // MARK: - NSCoding
     required convenience init?(coder aDecoder: NSCoder) {
-        let name = aDecoder.decodeObject(forKey:"name") as? String
-        let lastName = aDecoder.decodeObject(forKey: "lastName") as? String
-        let descriptionInfo = aDecoder.decodeObject(forKey: "description") as? String
+        let name = aDecoder.decodeObject(forKey: Keys.nameKey) as? String
+        let lastName = aDecoder.decodeObject(forKey: Keys.lastNameKey) as? String
+        let descriptionInfo = aDecoder.decodeObject(forKey: Keys.descriptionKey) as? String
         self.init(name: name, lastName: lastName, descriptionInfo: descriptionInfo)
     }
     
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: "name")
-        aCoder.encode(lastName, forKey: "lastName" )
-        aCoder.encode(descriptionInfo, forKey: "description")
+        aCoder.encode(name, forKey: Keys.nameKey)
+        aCoder.encode(lastName, forKey: Keys.lastNameKey)
+        aCoder.encode(descriptionInfo, forKey: Keys.descriptionKey)
     }
     
 }

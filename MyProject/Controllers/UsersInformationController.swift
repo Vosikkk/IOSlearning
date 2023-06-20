@@ -22,14 +22,12 @@ class UsersInformationController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
-        view.backgroundColor = .backGroundControllersColor
         tableView.register(UsersTableCell.self, forCellReuseIdentifier: "UsersTableCell")
         tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         // Update our table
         tableView.reloadData()
     }
@@ -50,7 +48,7 @@ extension UsersInformationController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableCell", for: indexPath) as? UsersTableCell else {fatalError()
         }
         
-        cell.configure(information: DataStorage.shared.users[indexPath.row])
+        cell.configure(user: DataStorage.shared.users[indexPath.row])
         return cell
     }
 }
@@ -59,6 +57,7 @@ extension UsersInformationController {
     
     func setUpTableView() {
         view.addSubview(tableView)
+        view.backgroundColor = .backGroundControllersColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

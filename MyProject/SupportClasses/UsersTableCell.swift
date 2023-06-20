@@ -63,9 +63,9 @@ class UsersTableCell: UITableViewCell {
     }
     
     // Configure the labels with the corresponding information
-    func configure(information: UserInfo) {
-        nameLabel.text = information.name
-        lastNameLabel.text = information.lastName
-        descriptionLabel.text = information.descriptionInfo
+    func configure(user: User) {
+        nameLabel.text = user.name
+        lastNameLabel.text = user.lastName
+        descriptionLabel.text = user.descriptionInfo
     }
 }
