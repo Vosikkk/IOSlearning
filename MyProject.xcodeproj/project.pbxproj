@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		381DB05F2A362B50003D943E /* UsersInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381DB05E2A362B50003D943E /* UsersInformationController.swift */; };
-		381DB0612A363143003D943E /* ObjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381DB0602A363143003D943E /* ObjectFactory.swift */; };
 		381DB0632A365D8E003D943E /* UsersTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381DB0622A365D8E003D943E /* UsersTableCell.swift */; };
 		3823833A2A3B491C00BB3F14 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382383392A3B491C00BB3F14 /* MainTabBarController.swift */; };
 		382383402A3B687600BB3F14 /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3823833F2A3B687600BB3F14 /* DataStorage.swift */; };
@@ -43,7 +42,6 @@
 
 /* Begin PBXFileReference section */
 		381DB05E2A362B50003D943E /* UsersInformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInformationController.swift; sourceTree = "<group>"; };
-		381DB0602A363143003D943E /* ObjectFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectFactory.swift; sourceTree = "<group>"; };
 		381DB0622A365D8E003D943E /* UsersTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableCell.swift; sourceTree = "<group>"; };
 		382383392A3B491C00BB3F14 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		3823833F2A3B687600BB3F14 /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 		3823833E2A3B681800BB3F14 /* SupportClasses */ = {
 			isa = PBXGroup;
 			children = (
-				381DB0602A363143003D943E /* ObjectFactory.swift */,
 				381DB0622A365D8E003D943E /* UsersTableCell.swift */,
 				3823833F2A3B687600BB3F14 /* DataStorage.swift */,
 				382383412A3B68FB00BB3F14 /* UIColorExtension.swift */,
@@ -310,7 +307,6 @@
 			files = (
 				389814A72A2E981600C0ED41 /* MainPageController.swift in Sources */,
 				389814A32A2E981600C0ED41 /* AppDelegate.swift in Sources */,
-				381DB0612A363143003D943E /* ObjectFactory.swift in Sources */,
 				382383402A3B687600BB3F14 /* DataStorage.swift in Sources */,
 				3823833A2A3B491C00BB3F14 /* MainTabBarController.swift in Sources */,
 				382383422A3B68FB00BB3F14 /* UIColorExtension.swift in Sources */,

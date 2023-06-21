@@ -9,20 +9,87 @@ import UIKit
 
 class MainPageController: UIViewController {
     
-    var nameLabel: UILabel!  // Label to display "Name:"
-    var lastNameLabel: UILabel!// Label to display "LastName:"
-    var descriptionLabel: UILabel!// Label to display "LastName:"
-    var nameField: UITextField!// Text field to enter the name
-    var lastNameField: UITextField!// Text field to enter the last name
-    var saveButton: UIButton!// Button to save the name and last name
-    var descriptionField: UITextView!// Text view to display a description
+    // MARK: - UI Elements
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Name:"
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .textColor
+        return label
+    }()
     
+    let lastNameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "LastName:"
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .textColor
+        return label
+    }()
+   
+    let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Description:"
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .textColor
+        return label
+    }()
+    
+    let nameField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.borderStyle = .roundedRect
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 7
+        textField.layer.borderColor = UIColor.borderColorForFields.cgColor
+        textField.contentVerticalAlignment = .center
+        textField.textAlignment = .left
+        textField.placeholder = "Enter your name"
+        return textField
+    }()
+    
+    let lastNameField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.borderStyle = .roundedRect
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 7
+        textField.layer.borderColor = UIColor.borderColorForFields.cgColor
+        textField.contentVerticalAlignment = .center
+        textField.textAlignment = .left
+        textField.placeholder = "Enter your last name"
+        return textField
+    }()
+    
+    let saveButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .backGroundButtonColor
+        button.setTitle("Save", for: .normal)
+        button.tintColor = .buttonTinColor
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        return button
+    }()
+    
+    let descriptionField: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.layer.borderColor = UIColor.borderColorForFields.cgColor
+        textView.layer.borderWidth = 0.5
+        textView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        textView.font = UIFont.systemFont(ofSize: 17)
+        textView.backgroundColor = .backGroundFiledsColor
+        return textView
+    }()
+    
+  
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backGroundControllersColor// Set the background color of the view to white
-        createObjects()// Initialize and configure UI elements
         drawObjects()// Add UI elements to the view
         setUpObjects()// Set auto layout constraints for UI elements
         configureActionForSaveButton()// Add target actions for button
@@ -31,25 +98,12 @@ class MainPageController: UIViewController {
     
     // Draw objects on the view
     func drawObjects() {
-        [nameLabel, lastNameLabel, descriptionLabel, nameField, lastNameField,descriptionField,saveButton].forEach {
+        [nameLabel, lastNameLabel, descriptionLabel, nameField, lastNameField, descriptionField, saveButton].forEach {
             view.addSubview($0)
         }
     }
     
-    // MARK: Initializers objects
-    
-    // Create and configure UI elements
-    private func createObjects() {
-        nameLabel = ObjectsFactory.createLabel(text: "Name:",fontSize: 18)
-        lastNameLabel =  ObjectsFactory.createLabel(text: "LastName:",fontSize: 18)
-        descriptionLabel =  ObjectsFactory.createLabel(text: "Description:",fontSize: 18)
-        nameField =  ObjectsFactory.createTextField(placeholder:"Enter your name")
-        lastNameField =  ObjectsFactory.createTextField(placeholder:"Enter your Last Name")
-        descriptionField =  ObjectsFactory.createTextView()
-        saveButton =  ObjectsFactory.createButton(title: "Save")
-        
-    }
-    
+  
     // MARK: Set Constraints
     
     // Set up the layout constraints for the UI elements

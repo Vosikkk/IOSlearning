@@ -10,17 +10,36 @@ import UIKit
 class UsersTableCell: UITableViewCell {
     
     
-    // Label for displaying the name
-    let nameLabel = ObjectsFactory.createLabel(text: "", fontSize: 18)
+    // MARK: - UI Elements
+    let nameLabel: UILabel = {
+           let label = UILabel()
+           label.translatesAutoresizingMaskIntoConstraints = false
+           label.font = UIFont.systemFont(ofSize: 18)
+           label.textColor = .textColor
+           return label
+       }()
+       
+       let lastNameLabel: UILabel = {
+           let label = UILabel()
+           label.translatesAutoresizingMaskIntoConstraints = false
+           label.font = UIFont.systemFont(ofSize: 18)
+           label.textColor = .textColor
+           return label
+       }()
+      
+       let descriptionLabel: UILabel = {
+           let label = UILabel()
+           label.translatesAutoresizingMaskIntoConstraints = false
+          
+           label.font = UIFont.systemFont(ofSize: 18)
+           label.textColor = .textColor
+           return label
+       }()
+       
+      
     
-    // Label for displaying the last name
-    let lastNameLabel = ObjectsFactory.createLabel(text: "", fontSize: 18)
     
-    // Label for displaying the description
-    let descriptionLabel = ObjectsFactory.createLabel(text: "", fontSize: 15)
-   
-    
-   // MARK: - Cell Initialization
+    // MARK: - Cell Initialization
    
     // This is the initializer for the UITableViewCell subclass
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
