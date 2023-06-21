@@ -55,7 +55,7 @@ extension UsersInformationController: UITableViewDataSource {
 // MARK:  Setup our table
 extension UsersInformationController {
     
-    func setUpTableView() {
+  private func setUpTableView() {
         view.addSubview(tableView)
         view.backgroundColor = .backGroundControllersColor
         tableView.translatesAutoresizingMaskIntoConstraints = false

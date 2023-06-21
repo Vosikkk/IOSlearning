@@ -10,7 +10,7 @@ import UIKit
 class MainPageController: UIViewController {
     
     // MARK: - UI Elements
-    let nameLabel: UILabel = {
+  private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Name:"
@@ -19,7 +19,7 @@ class MainPageController: UIViewController {
         return label
     }()
     
-    let lastNameLabel: UILabel = {
+    private lazy var lastNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "LastName:"
@@ -28,7 +28,7 @@ class MainPageController: UIViewController {
         return label
     }()
    
-    let descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Description:"
@@ -37,7 +37,7 @@ class MainPageController: UIViewController {
         return label
     }()
     
-    let nameField: UITextField = {
+    private lazy var nameField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
@@ -50,7 +50,7 @@ class MainPageController: UIViewController {
         return textField
     }()
     
-    let lastNameField: UITextField = {
+    private lazy var lastNameField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
@@ -63,7 +63,7 @@ class MainPageController: UIViewController {
         return textField
     }()
     
-    let saveButton: UIButton = {
+    private lazy var saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .backGroundButtonColor
@@ -73,7 +73,7 @@ class MainPageController: UIViewController {
         return button
     }()
     
-    let descriptionField: UITextView = {
+    private lazy var descriptionField: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.borderColor = UIColor.borderColorForFields.cgColor
@@ -156,7 +156,7 @@ class MainPageController: UIViewController {
 extension MainPageController {
     
     // Add target action for the first button
-    func configureActionForSaveButton() {
+  private func configureActionForSaveButton() {
         saveButton.addTarget(self, action: #selector(buttonSaveAction), for:.touchUpInside)
         
     }

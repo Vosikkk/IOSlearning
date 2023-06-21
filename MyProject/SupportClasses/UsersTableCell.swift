@@ -11,7 +11,7 @@ class UsersTableCell: UITableViewCell {
     
     
     // MARK: - UI Elements
-    let nameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
            let label = UILabel()
            label.translatesAutoresizingMaskIntoConstraints = false
            label.font = UIFont.systemFont(ofSize: 18)
@@ -19,7 +19,7 @@ class UsersTableCell: UITableViewCell {
            return label
        }()
        
-       let lastNameLabel: UILabel = {
+    private lazy var lastNameLabel: UILabel = {
            let label = UILabel()
            label.translatesAutoresizingMaskIntoConstraints = false
            label.font = UIFont.systemFont(ofSize: 18)
@@ -27,7 +27,7 @@ class UsersTableCell: UITableViewCell {
            return label
        }()
       
-       let descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
            let label = UILabel()
            label.translatesAutoresizingMaskIntoConstraints = false
           
